@@ -1,0 +1,12 @@
+{
+  "_note": "Who owns each guardrail. Overrides of a rule are routed to its owner. Longest matching prefix wins.",
+  "owners": {
+    "BV-":  {"owner": "Brand team",          "file": "context/brand_voice.md"},
+    "AM-":  {"owner": "Brand team",          "file": "context/approved_claims.md"},
+    "CL-":  {"owner": "Legal & Compliance",  "file": "context/approved_claims.md"},
+    "REG-": {"owner": "Legal & Compliance",  "file": "context/regulations.md"},
+    "CH-":  {"owner": "Channel Ops",         "file": "context/channel_specs.md + channel_specs.json"},
+    "ACC-": {"owner": "Accessibility lead",  "file": "context/channel_specs.md + channel_specs.json"}
+  },
+  "default": {"owner": "Marketing Ops", "file": "context/"}
+}
