@@ -13,6 +13,16 @@ AGENTS = {
         "prompt": "planner.md",
         "context": ["brand_voice.md", "approved_claims.md", "channel_specs.md"],
     },
+    "umbu-copywriter": {
+        "model_env": "TEXT_DEPLOYMENT",
+        "prompt": "copywriter.md",
+        "context": ["brand_voice.md", "approved_claims.md", "channel_specs.md"],
+    },
+    "umbu-art-director": {
+        "model_env": "TEXT_DEPLOYMENT",
+        "prompt": "art_director.md",
+        "context": ["brand_voice.md", "channel_specs.md", "regulations.md"],
+    },
 }
 
 
