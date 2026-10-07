@@ -28,6 +28,14 @@ Only the claims in the **Approved** table may be used. Wording can change, but t
 | CL-09 | Backed by the Northwind Repair Promise | If "promise," "lifetime" or "guarantee" appears, link or reference the terms |
 | CL-10 | $249 | Price must match exactly |
 
+## Approved messaging
+Brand lines signed off by Northwind's brand and legal owners. They may be used as written, and close variants that keep the meaning are fine.
+
+| ID | Line | Backed by |
+|---|---|---|
+| AM-01 | "Stay dry from both sides" (and "rain out, sweat out" variants) | CL-01 + CL-02 |
+| AM-02 | "Built to be repaired" | CL-09 |
+
 ## Prohibited
 
 | ID | Claim | Why |

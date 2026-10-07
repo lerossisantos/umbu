@@ -1,0 +1,15 @@
+{
+  "name": "VP Sales last-minute edits",
+  "story": "After the agents finished, the VP of Sales edited two assets directly: 'Lead with 100% recycled and guaranteed for life, the competition says it.' He also trimmed the email footer to look cleaner.",
+  "edited_by": "VP Sales (fictional scenario)",
+  "edits": {
+    "rda-01": {
+      "long_headline": "100% recycled jacket. PFAS-free. Guaranteed for life.",
+      "description": "The best rain jacket we've ever made. Hurry, launch stock won't last!"
+    },
+    "email-01": {
+      "subject": "100% WATERPROOF. GUARANTEED FOR LIFE!!!",
+      "footer": "Northwind, {{postal_address}}"
+    }
+  }
+}

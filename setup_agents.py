@@ -23,6 +23,16 @@ AGENTS = {
         "prompt": "art_director.md",
         "context": ["brand_voice.md", "channel_specs.md", "regulations.md"],
     },
+    "umbu-claims-checker": {
+        "model_env": "PLANNER_DEPLOYMENT",  # gpt-5: claims are the highest-risk judgment
+        "prompt": "claims_checker.md",
+        "context": ["approved_claims.md", "regulations.md"],
+    },
+    "umbu-brand-voice-checker": {
+        "model_env": "TEXT_DEPLOYMENT",
+        "prompt": "brand_voice_checker.md",
+        "context": ["brand_voice.md"],
+    },
 }
 
 

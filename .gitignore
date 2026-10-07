@@ -221,3 +221,4 @@ __marimo__/
 
 # Umbu pipeline outputs
 runs/
+.DS_Store
