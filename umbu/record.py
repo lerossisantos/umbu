@@ -6,7 +6,8 @@ from umbu.context import RUNS_DIR
 
 
 def latest_run_dir() -> Path:
-    runs = sorted(p for p in RUNS_DIR.iterdir() if p.is_dir())
+    # Scenario copies are named <run>-<scenario>; skip them so we always get the agents' own run.
+    runs = sorted(p for p in RUNS_DIR.iterdir() if p.is_dir() and p.name.count("-") == 1)
     if not runs:
         raise SystemExit("No runs found. Run `python run_planner.py` first.")
     return runs[-1]
