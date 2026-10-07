@@ -30,4 +30,6 @@ Return ONLY valid JSON, no commentary:
   ]
 }
 
+Out of scope: email footer requirements (postal address, unsubscribe link). `{{postal_address}}` and `{{unsubscribe_link}}` are merge fields the email platform fills at send time, and a code checker already verifies they are present. Do not report on them.
+
 If there are no issues, return an empty findings list. Do not flag style or tone; that is another checker's job.
