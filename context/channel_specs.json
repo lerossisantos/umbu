@@ -1,0 +1,30 @@
+{
+  "google_rsa": {
+    "headlines": {"min_count": 3, "max_count": 15, "max_chars": 30, "unique": true},
+    "descriptions": {"min_count": 2, "max_count": 4, "max_chars": 90},
+    "paths": {"max_count": 2, "max_chars": 15}
+  },
+  "google_rda": {
+    "short_headline": {"max_chars": 30},
+    "long_headline": {"max_chars": 90},
+    "description": {"max_chars": 90},
+    "business_name": {"max_chars": 25},
+    "images": {
+      "landscape": {"ratio": 1.91, "recommended": [1200, 628], "min": [600, 314]},
+      "square": {"ratio": 1.0, "recommended": [1200, 1200], "min": [300, 300]},
+      "max_file_kb": 5120
+    }
+  },
+  "email": {
+    "subject": {"max_chars": 50},
+    "preheader": {"min_chars": 40, "max_chars": 100},
+    "hero_image": {"size": [1200, 600]},
+    "body": {"max_words": 120},
+    "required_elements": ["cta", "postal_address", "unsubscribe_link"]
+  },
+  "accessibility": {
+    "alt_text": {"required": true, "max_chars": 125},
+    "min_contrast_ratio": 4.5,
+    "banned_link_text": ["click here", "read more", "learn more", "here"]
+  }
+}
