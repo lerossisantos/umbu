@@ -9,17 +9,24 @@ from umbu.context import CONTEXT_DIR
 
 SPECS = json.loads((CONTEXT_DIR / "channel_specs.json").read_text(encoding="utf-8"))
 
+# Minimum lengths are a house standard, not a platform limit: copy that is too
+# short still runs, it just wastes paid space. So they are warnings, not blocks.
+MIN_ID = "CH-MIN"
+
 
 def _finding(rule_id, field, message, severity="block"):
     return {"checker": "channel_spec", "rule_id": rule_id, "field": field,
             "issue": message, "severity": severity}
 
 
-def _max_chars(findings, rule_id, field, text, limit):
+def _max_chars(findings, rule_id, field, text, limit, min_chars=None):
     if text is None or text == "":
         findings.append(_finding(rule_id, field, "Missing"))
     elif len(text) > limit:
         findings.append(_finding(rule_id, field, f"{len(text)} characters, limit is {limit}: \"{text}\""))
+    elif min_chars and len(text) < min_chars:
+        findings.append(_finding(MIN_ID, field,
+            f"{len(text)} characters, aim for {min_chars}-{limit} to use the space: \"{text}\"", "warning"))
 
 
 def _check_rsa(copy, f):
@@ -34,7 +41,7 @@ def _check_rsa(copy, f):
     if not s["descriptions"]["min_count"] <= len(descs) <= s["descriptions"]["max_count"]:
         f.append(_finding("CH-RSA-02", "descriptions", f"{len(descs)} descriptions, need 2-4"))
     for i, d in enumerate(descs, 1):
-        _max_chars(f, "CH-RSA-02", f"description {i}", d, s["descriptions"]["max_chars"])
+        _max_chars(f, "CH-RSA-02", f"description {i}", d, s["descriptions"]["max_chars"], s["descriptions"].get("min_chars"))
     for i, p in enumerate(paths[: s["paths"]["max_count"]], 1):
         _max_chars(f, "CH-RSA-03", f"path {i}", p, s["paths"]["max_chars"])
 
@@ -42,17 +49,15 @@ def _check_rsa(copy, f):
 def _check_rda(copy, f):
     s = SPECS["google_rda"]
     _max_chars(f, "CH-RDA-01", "short_headline", copy.get("short_headline"), s["short_headline"]["max_chars"])
-    _max_chars(f, "CH-RDA-02", "long_headline", copy.get("long_headline"), s["long_headline"]["max_chars"])
-    _max_chars(f, "CH-RDA-03", "description", copy.get("description"), s["description"]["max_chars"])
+    _max_chars(f, "CH-RDA-02", "long_headline", copy.get("long_headline"), s["long_headline"]["max_chars"], s["long_headline"].get("min_chars"))
+    _max_chars(f, "CH-RDA-03", "description", copy.get("description"), s["description"]["max_chars"], s["description"].get("min_chars"))
     _max_chars(f, "CH-RDA-04", "business_name", copy.get("business_name"), s["business_name"]["max_chars"])
 
 
 def _check_email(copy, f):
     s = SPECS["email"]
     _max_chars(f, "CH-EM-01", "subject", copy.get("subject"), s["subject"]["max_chars"])
-    pre = copy.get("preheader", "")
-    if not s["preheader"]["min_chars"] <= len(pre) <= s["preheader"]["max_chars"]:
-        f.append(_finding("CH-EM-02", "preheader", f"{len(pre)} characters, need 40-100"))
+    _max_chars(f, "CH-EM-02", "preheader", copy.get("preheader"), s["preheader"]["max_chars"], s["preheader"].get("min_chars"))
     words = len(copy.get("body", "").split())
     if words > s["body"]["max_words"]:
         f.append(_finding("CH-EM-04", "body", f"{words} words, limit is {s['body']['max_words']}"))
