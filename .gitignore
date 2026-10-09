@@ -222,3 +222,6 @@ __marimo__/
 # Umbu pipeline outputs
 runs/
 .DS_Store
+
+# Files the Claude desktop app saves into the project
+Claude outputs/

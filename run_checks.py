@@ -10,6 +10,7 @@ import shutil
 
 from umbu.context import ROOT
 from umbu.foundry import get_project
+from umbu.brief_checks import check_package
 from umbu.panel import route, run_panel
 from umbu.record import latest_run_dir, load_record, save_record
 
@@ -62,6 +63,13 @@ def main():
         print(f"\n{c['asset_id']}: {label}")
         for f in c["findings"]:
             print(f"  [{f['severity'].upper():5}] {f['checker']:12} {f['rule_id']:9} {f['field']}: {f['issue']}")
+    print("\n=== Brief check (package level) ===")
+    record["brief_check"] = check_package(project, record)
+    save_record(run_dir, record)
+    if not record["brief_check"]["findings"]:
+        print("  All brief mandatories met.")
+    for f in record["brief_check"]["findings"]:
+        print(f"  [{f['severity'].upper():5}] {f['rule_id']:6} {f['asset_id']}: {f['issue']}")
     print(f"\nSaved to {run_dir / 'record.json'}")
 
 

@@ -15,6 +15,7 @@ import json
 import streamlit as st
 
 from umbu.context import RUNS_DIR
+from umbu.brief_checks import check_package, load_mandatories
 from umbu.foundry import get_project
 from umbu.governance import STATUS_LABEL, load_overrides, log_warning_overrides, takedowns_for_run
 from umbu.panel import route, run_panel
@@ -27,7 +28,8 @@ DECISIONS = ["Approve", "Request changes", "Reject"]
 
 # ---------- helpers ----------
 def list_runs():
-    runs = [p for p in RUNS_DIR.iterdir() if p.is_dir() and (p / "record.json").exists()]
+    runs = [p for p in RUNS_DIR.iterdir() if p.is_dir() and (p / "record.json").exists()
+            and json.loads((p / "record.json").read_text(encoding="utf-8")).get("status") != "needs_input"]
     return sorted(runs, key=lambda p: p.name, reverse=True)
 
 
@@ -98,7 +100,8 @@ def render_finding(f):
     st.markdown(
         f"<div style='border-left:4px solid {color};padding:4px 10px;margin:6px 0'>"
         f"<b style='color:{color}'>{f['severity'].upper()}</b> · <code>{f['rule_id']}</code> · "
-        f"{html.escape(f.get('field', ''))} · <span style='color:#888'>{checkers}</span><br>"
+        f"{html.escape(f.get('field', ''))} · <span style='color:#888'>{checkers}</span>"
+        f"{' · confidence: ' + f['confidence'] if f.get('confidence') else ''}<br>"
         f"{html.escape(f['issue'])}{quote}{fix}</div>",
         unsafe_allow_html=True,
     )
@@ -259,6 +262,35 @@ for asset in record["assets"]:
                     save_record(run_dir, record)
                     st.session_state[f"msg-{aid}"] = ("success", f"Saved: {choice}.")
                     st.rerun()
+
+# ---------- brief check (package level) ----------
+st.divider()
+st.subheader("Brief check")
+spec = load_mandatories()
+st.caption(f"Against campaign brief {spec.get('brief_version', 'v1')} · owner: Campaign owner. "
+           "Runs on the approved version of each asset where there is one, because edits made "
+           "during review can break the brief after creation.")
+for m in spec["mandatories"]:
+    st.markdown(f"`{m['id']}` {m['text']} <span style='color:#888'>· "
+                f"{'rule-based' if m['method'] == 'code' else 'AI judgment'}</span>", unsafe_allow_html=True)
+bc = record.get("brief_check")
+if st.button("Re-run brief check on approved content"):
+    with st.spinner("Checking the campaign against its brief..."):
+        record["brief_check"] = check_package(get_project(), record)
+    save_record(run_dir, record)
+    st.rerun()
+if not bc:
+    st.write("Not run yet for this campaign.")
+elif not bc["findings"]:
+    st.success(f"All brief mandatories met (checked {bc['checked_at']}).")
+else:
+    st.caption(f"Checked {bc['checked_at']} · versions: " +
+               ", ".join(f"{k} {v}" for k, v in bc["checked_versions"].items()))
+    for f in bc["findings"]:
+        render_finding({**f, "checkers": ["brief"], "field": f"{f['asset_id']} · {f['field']}"})
+    st.info("Two ways to resolve a brief finding: **fix the content** (edit the asset above; the edit is "
+            "re-checked against the brief too), or **amend the brief** if the brief itself changed. "
+            "Brief amendments with campaign-owner approval are designed, not built yet.")
 
 # ---------- learning signal ----------
 st.divider()
