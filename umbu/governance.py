@@ -14,12 +14,31 @@ OPEN = "open"
 CHANGE_REQUESTED = "guardrail_change_requested"
 KEPT_LIVE = "kept_content_stays_live"
 KEPT_TAKEDOWN = "kept_takedown_requested"
+STANDARDS_UPDATE = "standards_update_requested"
 STATUS_LABEL = {
     OPEN: "Open",
-    CHANGE_REQUESTED: "Guardrail change requested",
-    KEPT_LIVE: "Kept guardrail · content stays live",
-    KEPT_TAKEDOWN: "Kept guardrail · takedown requested",
+    CHANGE_REQUESTED: "Rule change requested",
+    KEPT_LIVE: "Rule stands · content stays as is",
+    KEPT_TAKEDOWN: "Rule stands · content owner asked to adjust it",
+    STANDARDS_UPDATE: "Standards update requested",
 }
+
+# What the owner decides happened, and how that decision is used for learning.
+# Every resolved override carries exactly one label, so human decisions stay usable as a signal.
+OUTCOMES = [
+    {"key": "reviewer_error", "name": "Reviewer overrode a correct rule",
+     "desc": "The rule and the checker were right; the approval was a mistake.",
+     "label": "Reviewer error · reinforces the checker, override not used", "step2": True},
+    {"key": "checker_error", "name": "Checker applied the rule wrongly",
+     "desc": "The rule is right, but the checker misread the content.",
+     "label": "Checker error · used to improve the checker", "step2": True},
+    {"key": "rule_change", "name": "Change the rule",
+     "desc": "The rule was applied as written, but our policy should change.",
+     "label": "Rule change · used for learning under the new rule version", "step2": False},
+    {"key": "outdated_standards", "name": "Rule is out of date with its source",
+     "desc": "The source changed (e.g. a new regulation); update the standards and re-check affected content.",
+     "label": "Outdated standards · past findings excluded from calibration", "step2": True},
+]
 
 
 def owner_for(rule_id: str) -> dict:

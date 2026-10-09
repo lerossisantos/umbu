@@ -1,0 +1,20 @@
+{
+  "cases": 3,
+  "runs": 1,
+  "rows": 3,
+  "verdict_accuracy": 0.3333333333333333,
+  "block_recall": null,
+  "false_block_rate": 0.0,
+  "clean_auto_pass_rate": 0.3333333333333333,
+  "rule_id_match": null,
+  "consistency": null,
+  "checker_failures": 0,
+  "recall_by_family": {},
+  "missed_blocks": [],
+  "false_blocks": [],
+  "inconsistent_cases": [],
+  "confusion": {
+    "pass\u2192pass": 1,
+    "pass\u2192warn": 2
+  }
+}

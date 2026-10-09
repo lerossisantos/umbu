@@ -1,0 +1,10 @@
+# Umbu visual identity (see the visual identity guide): one teal accent, quiet neutrals.
+[theme]
+base = "light"
+primaryColor = "#0E4D52"
+backgroundColor = "#F5F7F6"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#16201C"
+
+[client]
+toolbarMode = "minimal"
