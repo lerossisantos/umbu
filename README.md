@@ -83,7 +83,19 @@ python run_eval.py                          # 35 cases x 3 runs → eval/results
 python log_eval_to_foundry.py --safety      # log to Foundry (+ optional built-in safety evaluator)
 ```
 
-Results: see the latest `eval/results/<time>/results.md`.
+**Results (Oct 9, 2026 · 35 cases x 3 runs · `eval/results/20261009-145405/`):**
+
+| Metric | Result | Target |
+|---|---|---|
+| Block recall (violations caught) | 99% (71/72) | ≥ 95% |
+| False blocks on clean copy | 4% (1/27) | ≤ 10% |
+| Verdict accuracy (pass / warn / block) | 90% (94/105) | ≥ 80% |
+| Cited the expected rule | 99% (77/78) | ≥ 90% |
+| Code-checked rules (specs, accessibility, CAN-SPAM, AI disclosure, price) | 100% (21/21) | 100% |
+| Same block / no-block decision across 3 runs | 94% (33/35 cases) | ≥ 95% |
+| Same exact verdict across 3 runs | 77% (27/35 cases) | ≥ 90% |
+
+The one missed block ("Built for weekend warriors") and the one false block (a display ad flagged once for the breathability qualifier) were both model-judgment calls that changed between runs. One checker call failed and was sent to a person (SYS-01), as designed. Most verdict changes are clean copy moving between *pass* and a mild brand-voice *warning*, which is why warnings go to a person instead of auto-passing.
 
 **Next:** a held-out set written by someone other than the rule author, a larger set (40+ briefs), and per-metric thresholds as the quality gate before each new stage opens.
 
