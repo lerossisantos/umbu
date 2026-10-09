@@ -1,0 +1,46 @@
+{
+  "cases": 35,
+  "runs": 3,
+  "rows": 105,
+  "verdict_accuracy": 0.8952380952380953,
+  "block_recall": 0.9861111111111112,
+  "false_block_rate": 0.037037037037037035,
+  "clean_auto_pass_rate": 0.6296296296296297,
+  "rule_id_match": 0.9871794871794872,
+  "consistency": 0.7714285714285715,
+  "checker_failures": 1,
+  "recall_by_family": {
+    "ACC": "6/6",
+    "AM": "3/3",
+    "BR": "3/3",
+    "BV": "11/12",
+    "CH": "6/6",
+    "CL": "30/30",
+    "REG": "6/6",
+    "VP": "6/6"
+  },
+  "missed_blocks": [
+    "V15"
+  ],
+  "false_blocks": [
+    "C02"
+  ],
+  "inconsistent_cases": [
+    "C01",
+    "C02",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "V15"
+  ],
+  "confusion": {
+    "pass\u2192pass": 17,
+    "pass\u2192warn": 9,
+    "block\u2192block": 71,
+    "pass\u2192block": 1,
+    "warn\u2192warn": 6,
+    "block\u2192warn": 1
+  }
+}
