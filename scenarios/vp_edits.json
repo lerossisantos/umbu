@@ -1,6 +1,6 @@
 {
   "name": "VP Sales last-minute edits",
-  "story": "After the agents finished, the VP of Sales edited two assets directly: 'Lead with 100% recycled and guaranteed for life, the competition says it.' He also trimmed the email footer to look cleaner.",
+  "story": "After the agents finished, the VP of Sales edited two assets directly: 'Lead with 100% recycled and guaranteed for life, the competition says it.' He also trimmed the email footer to look cleaner. He also put a $229 launch-week price in the email preheader.",
   "edited_by": "VP Sales (fictional scenario)",
   "edits": {
     "rda-01": {
@@ -9,7 +9,8 @@
     },
     "email-01": {
       "subject": "100% WATERPROOF. GUARANTEED FOR LIFE!!!",
-      "footer": "Northwind, {{postal_address}}"
+      "footer": "Northwind, {{postal_address}}",
+      "preheader": "Launch week price: $229. Stay dry from both sides on every hike."
     }
   }
 }

@@ -17,8 +17,8 @@ Only the claims in the **Approved** table may be used. Wording can change, but t
 
 | ID | Claim | Required qualifier / evidence |
 |---|---|---|
-| CL-01 | Waterproof, rated to 20,000 mm | Evidence: lab hydrostatic head test on new fabric |
-| CL-02 | Breathable, rated to 15,000 g/m²/24h | Evidence: lab MVTR test on new fabric |
+| CL-01 | Waterproof, rated to 20,000 mm | Evidence: lab hydrostatic head test on new fabric. When the number is quoted, say "rated to 20,000 mm" (it's a lab rating on new fabric). "Waterproof" as a plain benefit word is fine without the number |
+| CL-02 | Breathable, rated to 15,000 g/m²/24h | Evidence: lab MVTR test on new fabric. When the number is quoted, say "rated to 15,000 g/m²/24h" (unit in full). "Breathable" as a plain benefit word is fine without the number |
 | CL-03 | Face fabric made from 100% recycled nylon | Must say "face fabric." Never "100% recycled jacket." |
 | CL-04 | Water-repellent finish made without intentionally added PFAS | Must keep "intentionally added." Never "PFAS-free jacket" or "chemical-free." |
 | CL-05 | Fully taped seams | — |
@@ -33,7 +33,7 @@ Brand lines signed off by Northwind's brand and legal owners. They may be used a
 
 | ID | Line | Backed by |
 |---|---|---|
-| AM-01 | "Stay dry from both sides" (and "rain out, sweat out" variants) | CL-01 + CL-02 |
+| AM-01 | "Stay dry from both sides" (and the variant "Rain stays out, you stay dry inside"). Never say or imply the wearer won't sweat: breathability lets moisture escape, it doesn't stop sweating | CL-01 + CL-02 |
 | AM-02 | "Built to be repaired" | CL-09 |
 
 ## Prohibited

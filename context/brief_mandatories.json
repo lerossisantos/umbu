@@ -1,0 +1,11 @@
+{
+  "_note": "The campaign brief's mandatories as checkable rules. Code checks exact items (price); the brief checker agent judges meaning. In the product these come from the brief itself.",
+  "brief": "campaign_brief.md",
+  "brief_version": "v1",
+  "mandatories": [
+    {"id": "BR-01", "text": "Price ($249) in the launch email. No other price anywhere.",
+     "method": "code", "type": "price", "price": "$249", "required_in": ["email"]},
+    {"id": "BR-02", "text": "Mention the Northwind Repair Promise in at least one asset.",
+     "method": "model", "scope": "campaign"}
+  ]
+}

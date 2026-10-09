@@ -29,10 +29,14 @@ def main():
         print(f"\n[{asset_id}] Copywriter is writing...")
         copy = ask_agent(project, "umbu-copywriter", {
             "key_message": plan["key_message"],
+            "messages": [m for m in plan.get("messages", []) if m.get("message_id") in brief.get("message_ids", [])],
             "asset_brief": {k: v for k, v in brief.items() if k != "image_brief"},
         })
         asset = {"asset_id": asset_id, "channel": brief["channel"], "copy": copy["copy"],
-                 "claims_used": copy.get("claims_used", []), "copy_notes": copy.get("notes", "")}
+                 "claims_used": copy.get("claims_used", []), "copy_notes": copy.get("notes", ""),
+                 "refused": copy.get("refused", []), "message_ids": brief.get("message_ids", [])}
+        for r in asset["refused"]:
+            print(f"[{asset_id}] Copywriter refused: {r}")
 
         if brief.get("image_brief"):
             print(f"[{asset_id}] Art Director is writing the image prompt...")

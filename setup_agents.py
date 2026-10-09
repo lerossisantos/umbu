@@ -11,7 +11,7 @@ AGENTS = {
     "umbu-planner": {
         "model_env": "PLANNER_DEPLOYMENT",
         "prompt": "planner.md",
-        "context": ["brand_voice.md", "approved_claims.md", "channel_specs.md"],
+        "context": ["brand_voice.md", "approved_claims.md", "channel_specs.md", "regulations.md"],
     },
     "umbu-copywriter": {
         "model_env": "TEXT_DEPLOYMENT",
@@ -31,13 +31,18 @@ AGENTS = {
     "umbu-brand-voice-checker": {
         "model_env": "TEXT_DEPLOYMENT",
         "prompt": "brand_voice_checker.md",
-        "context": ["brand_voice.md"],
+        "context": ["brand_voice.md", "approved_claims.md"],
+    },
+    "umbu-brief-checker": {
+        "model_env": "TEXT_DEPLOYMENT",
+        "prompt": "brief_checker.md",
+        "context": ["approved_claims.md"],
     },
 }
 
 
 def build_instructions(spec: dict) -> str:
-    return load_prompt(spec["prompt"]) + "\n\n# Northwind context\n\n" + load_context(*spec["context"])
+    return load_prompt(spec["prompt"]) + "\n\n# Brand context\n\n" + load_context(*spec["context"])
 
 
 def main():

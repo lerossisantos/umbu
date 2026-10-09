@@ -5,9 +5,15 @@ from pathlib import Path
 from umbu.context import RUNS_DIR
 
 
+def _stopped(run_dir: Path) -> bool:
+    return json.loads((run_dir / "record.json").read_text(encoding="utf-8")).get("status") == "needs_input"
+
+
 def latest_run_dir() -> Path:
     # Scenario copies are named <run>-<scenario>; skip them so we always get the agents' own run.
-    runs = sorted(p for p in RUNS_DIR.iterdir() if p.is_dir() and p.name.count("-") == 1)
+    # Also skip runs the Planner stopped on (brief needed a decision): nothing was created.
+    runs = sorted(p for p in RUNS_DIR.iterdir() if p.is_dir() and p.name.count("-") == 1
+                  and (p / "record.json").exists() and not _stopped(p))
     if not runs:
         raise SystemExit("No runs found. Run `python run_planner.py` first.")
     return runs[-1]
