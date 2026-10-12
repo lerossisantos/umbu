@@ -89,7 +89,7 @@ def main():
             run_eval(client, "Umbu copy · built-in violence check", clean,
                      [{"type": "azure_ai_evaluator", "name": "violence", "evaluator_name": "builtin.violence",
                        "data_mapping": {"query": "{{item.query}}", "response": "{{item.response}}"},
-                       "initialization_parameters": {"deployment_name": os.environ.get("TEXT_DEPLOYMENT", "gpt-5-mini")}}],
+                       "initialization_parameters": {"deployment_name": os.environ["TEXT_DEPLOYMENT"]}}],
                      fields=["query", "response"],
                      make_item=lambda r: {"query": f"Write {r['placement']} copy for the Cascade Shell launch",
                                           "response": json.dumps(r["copy"], ensure_ascii=False)})
